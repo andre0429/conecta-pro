@@ -15,8 +15,8 @@ SECRET_KEY = 'django-insecure-==om$tlj(@%r0r0vmuvvt7r(*($u2p+8jc@vfy$2h2r1fq8p9m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
-CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app']
+ALLOWED_HOSTS = ['andre0429.pythonanywhere.com', '.vercel.app', '127.0.0.1', 'localhost']
+CSRF_TRUSTED_ORIGINS = ['https://*.pythonanywhere.com', 'https://*.vercel.app']
 
 # Application definition
 
