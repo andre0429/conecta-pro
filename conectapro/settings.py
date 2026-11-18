@@ -1,4 +1,5 @@
 from pathlib import Path
+import shutil
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -15,6 +16,7 @@ SECRET_KEY = 'django-insecure-==om$tlj(@%r0r0vmuvvt7r(*($u2p+8jc@vfy$2h2r1fq8p9m
 DEBUG = True
 
 ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
+CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app']
 
 # Application definition
 
@@ -63,12 +65,23 @@ WSGI_APPLICATION = 'conectapro.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if os.environ.get('VERCEL'):
+    tmp_db = '/tmp/db.sqlite3'
+    if not os.path.exists(tmp_db):
+        shutil.copy2(BASE_DIR / 'db.sqlite3', tmp_db)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': tmp_db,
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
